@@ -16,18 +16,19 @@ for row in cursor.execute(SQL):
 
 cell_matrix = pd.DataFrame(item_list, columns=["Name", "Type", "Cost"])
 
-# Create selection tools
-create_list = st.number_input("How many choices do you want?", 1, 3)
-value_select = st.selectbox("Select Cuisine", cell_matrix["Type"].unique())
-cost_select = st.selectbox("Select Price Range", cell_matrix["Cost"].unique())
-
-# Select values in dataset
-selected = cell_matrix.loc[(cell_matrix["Type"] == value_select) & (cell_matrix["Cost"] == cost_select)]
-
-# Display
-try:
-    st.dataframe(selected.sample(create_list))
-except:
-    st.write("No options for these selections...")
+if st.checkbox("Surprise Me"):
+    st.dataframe(cell_matrix.sample())
+else:
+    # Select values in dataset
+    # Create selection tools
+    create_list = st.number_input("How many choices do you want?", 1, 3)
+    value_select = st.selectbox("Select Cuisine", cell_matrix["Type"].unique())
+    cost_select = st.selectbox("Select Price Range", cell_matrix["Cost"].unique())
+    selected = cell_matrix.loc[(cell_matrix["Type"] == value_select) & (cell_matrix["Cost"] == cost_select)]
+    # Display
+    try:
+        st.dataframe(selected.sample(create_list))
+    except:
+        st.write("No options for these selections...")
 
 
