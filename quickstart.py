@@ -3,7 +3,7 @@ import pygsheets
 import pandas as pd
 
 # Authorization
-gc = pygsheets.authorize(service_file='creds.json')
+gc = pygsheets.authorize(service_file='.streamlit/secrets.toml')
 
 # Open the google spreadsheet (where 'PY to Gsheet Test' is the name of my sheet)
 sh = gc.open('food')
